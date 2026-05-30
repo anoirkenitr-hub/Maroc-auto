@@ -6,7 +6,6 @@
 <title>MarocAuto – سيارات مستعملة بالمغرب</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 
-<!-- GOOGLE ADSENSE CODE -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 
 <style>
@@ -37,6 +36,7 @@
     color: var(--white);
     overflow-x: hidden;
     cursor: default;
+    padding-top: 112px; /* تم تعديل الهامش ليتناسب مع شريط الإعلان العلوي الجديد + القائمة */
   }
 
   /* SCROLLBAR */
@@ -44,15 +44,35 @@
   ::-webkit-scrollbar-track { background: var(--dark-2); }
   ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
 
+  /* ===== NEW: TOP YELLOW PREMIUM ANNOUNCEMENT BAR ===== */
+  .top-premium-bar {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 40px;
+    background: linear-gradient(90deg, #FFD700 0%, #FFA500 100%);
+    color: #000;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-size: 14px; font-weight: 700; z-index: 1001;
+    box-shadow: 0 2px 10px rgba(212,175,55,0.3);
+    font-family: 'Tajawal', sans-serif;
+  }
+  .top-premium-bar .badge {
+    background: #000; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 800;
+  }
+  .top-premium-bar .action-link {
+    color: #000; text-decoration: underline; cursor: pointer; margin-right: 5px; transition: opacity 0.2s;
+  }
+  .top-premium-bar .action-link:hover { opacity: 0.8; }
+
   /* ===== NAVBAR ===== */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    position: fixed; top: 40px; left: 0; right: 0; z-index: 1000;
     display: flex; align-items: center; justify-content: space-between;
     padding: 0 5%;
     height: 72px;
     background: rgba(13,13,13,0.92);
     backdrop-filter: blur(16px);
     border-bottom: 1px solid rgba(200,16,46,0.3);
+    transition: all 0.3s ease;
   }
 
   .logo {
@@ -135,10 +155,10 @@
 
   /* ===== HERO ===== */
   .hero {
-    min-height: 100vh;
+    min-height: calc(100vh - 112px);
     position: relative;
     display: flex; align-items: center;
-    padding: 100px 5% 60px;
+    padding: 60px 5% 60px;
     overflow: hidden;
   }
 
@@ -271,9 +291,6 @@
     filter: drop-shadow(0 20px 60px rgba(0,0,0,0.8));
     position: relative; z-index: 1;
   }
-
-  /* SVG car placeholder */
-  .car-svg-wrap { position: relative; z-index: 1; }
 
   /* ===== SEARCH BAR ===== */
   .search-section {
@@ -458,7 +475,6 @@
     color: var(--gray);
     display: flex; align-items: center; gap: 4px;
   }
-  .spec::before { font-size: 13px; }
   .spec.year::before { content: '📅'; }
   .spec.km::before { content: '🛣️'; }
   .spec.fuel::before { content: '⛽'; }
@@ -492,7 +508,6 @@
   }
   .btn-contact:hover { background: var(--red); color: white; }
 
-  /* SVG car illustration for cards */
   .car-svg-card {
     width: 100%; height: 100%;
     display: flex; align-items: center; justify-content: center;
@@ -560,25 +575,9 @@
   .feature-card:hover::before { height: 100%; }
   .feature-card:hover { border-color: rgba(200,16,46,0.2); }
 
-  .feature-icon {
-    font-size: 36px;
-    margin-bottom: 16px;
-    display: block;
-  }
-
-  .feature-title {
-    font-family: 'Tajawal', sans-serif;
-    font-size: 18px;
-    font-weight: 800;
-    margin-bottom: 10px;
-    color: var(--white);
-  }
-
-  .feature-desc {
-    font-size: 14px;
-    color: var(--gray);
-    line-height: 1.8;
-  }
+  .feature-icon { font-size: 36px; margin-bottom: 16px; display: block; }
+  .feature-title { font-family: 'Tajawal', sans-serif; font-size: 18px; font-weight: 800; margin-bottom: 10px; color: var(--white); }
+  .feature-desc { font-size: 14px; color: var(--gray); line-height: 1.8; }
 
   /* ===== CTA ===== */
   .cta-section {
@@ -598,14 +597,8 @@
   }
 
   .cta-content { position: relative; z-index: 1; }
-  .cta-title {
-    font-family: 'Tajawal', sans-serif;
-    font-size: clamp(28px, 4vw, 48px);
-    font-weight: 900;
-    margin-bottom: 16px;
-  }
+  .cta-title { font-family: 'Tajawal', sans-serif; font-size: clamp(28px, 4vw, 48px); font-weight: 900; margin-bottom: 16px; }
   .cta-desc { font-size: 17px; opacity: 0.85; margin-bottom: 36px; max-width: 500px; margin-inline: auto; }
-
   .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
   .btn-white {
@@ -659,9 +652,7 @@
     border-radius: 50%;
     background: var(--red);
     display: flex; align-items: center; justify-content: center;
-    font-weight: 800;
-    font-size: 16px;
-    color: white;
+    font-weight: 800; font-size: 16px; color: white;
     font-family: 'Tajawal', sans-serif;
   }
   .author-name { font-weight: 700; font-size: 15px; }
@@ -681,30 +672,19 @@
     margin-bottom: 40px;
   }
 
-  .footer-brand { }
-  .footer-brand .logo { margin-bottom: 16px; display: inline-flex; }
   .footer-brand p { font-size: 14px; color: var(--gray); line-height: 1.8; max-width: 280px; }
-
   .footer-social { display: flex; gap: 10px; margin-top: 20px; }
   .social-btn {
     width: 36px; height: 36px;
     background: var(--dark-3);
     border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.2s;
+    font-size: 16px; cursor: pointer; transition: all 0.2s;
     border: 1px solid rgba(255,255,255,0.08);
   }
   .social-btn:hover { background: var(--red); border-color: var(--red); }
 
-  .footer-col h4 {
-    font-family: 'Tajawal', sans-serif;
-    font-size: 16px;
-    font-weight: 800;
-    margin-bottom: 18px;
-    color: var(--white);
-  }
+  .footer-col h4 { font-family: 'Tajawal', sans-serif; font-size: 16px; font-weight: 800; margin-bottom: 18px; color: var(--white); }
   .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
   .footer-col a { color: var(--gray); text-decoration: none; font-size: 14px; transition: color 0.2s; }
   .footer-col a:hover { color: var(--red); }
@@ -717,7 +697,7 @@
   .footer-bottom p { font-size: 13px; color: var(--gray); }
   .footer-bottom .flag { font-size: 18px; }
 
-  /* ===== NEW: ADSENSE CONTAINER STYLE ===== */
+  /* ===== ADSENSE CONTAINER STYLE ===== */
   .ads-container {
     max-width: 1200px;
     margin: 30px auto;
@@ -727,14 +707,9 @@
     border-radius: 10px;
     text-align: center;
   }
-  .ads-label {
-    font-size: 11px;
-    color: var(--gray);
-    margin-bottom: 5px;
-    text-transform: uppercase;
-  }
+  .ads-label { font-size: 11px; color: var(--gray); margin-bottom: 5px; text-transform: uppercase; }
 
-  /* ===== NEW: PREMIUM UPGRADE MODAL SYSTEM ===== */
+  /* ===== PREMIUM UPGRADE MODAL SYSTEM ===== */
   .modal-overlay {
     position: fixed; inset: 0;
     background: rgba(0,0,0,0.85);
@@ -793,7 +768,6 @@
   .plan-features li::before { content: '✓ '; color: var(--green); margin-left: 5px; font-weight: bold; }
   .plan-box.premium .plan-features li::before { color: var(--gold); }
 
-  /* Payment Form Styles */
   .payment-form { display: none; margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px; }
   .payment-form.active { display: block; }
   .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
@@ -808,18 +782,14 @@
     to { opacity: 1; transform: translate(0, -50%); }
   }
 
-  .animate-in {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .animate-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .animate-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .animate-in.visible { opacity: 1; transform: translateY(0); }
 
   /* ===== RESPONSIVE ===== */
   @media (max-width: 900px) {
+    body { padding-top: 132px; }
+    nav { top: 60px; height: auto; padding: 10px 5%; flex-direction: column; gap: 10px; }
+    .top-premium-bar { height: 60px; padding: 5px 15px; text-align: center; }
     .hero-visual { display: none; }
     .search-grid { grid-template-columns: 1fr 1fr; }
     .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -838,26 +808,23 @@
 
   /* FLOATING WHATSAPP */
   .whatsapp-float {
-    position: fixed;
-    bottom: 28px;
-    left: 28px;
-    width: 56px; height: 56px;
-    background: #25D366;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 26px;
-    box-shadow: 0 4px 20px rgba(37,211,102,0.5);
-    cursor: pointer;
-    z-index: 999;
-    transition: all 0.3s;
-    text-decoration: none;
+    position: fixed; bottom: 28px; left: 28px;
+    width: 56px; height: 56px; background: #25D366; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 26px;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.5); cursor: pointer; z-index: 999;
+    transition: all 0.3s; text-decoration: none;
   }
   .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37,211,102,0.6); }
 </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
+<div class="top-premium-bar">
+  <span class="badge">إعلان ترويجي ⭐</span>
+  <span>بع سيارتك أسرع بـ 10 أضعاف! قم بترقية إعلانك ليكون <strong>إعلاناً مميزاً</strong> ومثبتاً في الصدارة الآن.</span>
+  <span class="action-link open-upload-modal">اضغط للتفاصيل ←</span>
+</div>
+
 <nav>
   <a href="#" class="logo">
     <div class="logo-icon">MA</div>
@@ -876,17 +843,14 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
 
-  <!-- Car visual left -->
   <div class="hero-visual">
     <div class="car-showcase">
       <div class="car-glow"></div>
       <svg class="car-img" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
-        <!-- Car body -->
         <ellipse cx="400" cy="340" rx="340" ry="18" fill="rgba(200,16,46,0.15)" filter="url(#blur)"/>
         <defs>
           <filter id="blur"><feGaussianBlur stdDeviation="10"/></filter>
@@ -899,35 +863,25 @@
             <stop offset="100%" style="stop-color:#c8102e"/>
           </linearGradient>
         </defs>
-        <!-- Main body -->
         <path d="M80 260 Q100 180 200 160 Q280 145 320 140 L480 135 Q560 135 620 155 Q680 175 720 240 L730 280 Q730 300 710 305 L90 310 Q70 308 70 285 Z" fill="url(#bodyGrad)"/>
-        <!-- Roof -->
         <path d="M220 160 Q260 95 320 82 L480 78 Q540 78 580 100 Q610 118 630 155 Z" fill="url(#roofGrad)"/>
-        <!-- Windows -->
         <path d="M235 155 Q265 100 320 88 L400 85 L400 150 Z" fill="rgba(150,220,255,0.35)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
         <path d="M408 85 L480 83 Q530 83 565 105 Q590 122 615 152 L408 152 Z" fill="rgba(150,220,255,0.3)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-        <!-- Door lines -->
         <line x1="405" y1="155" x2="405" y2="305" stroke="rgba(0,0,0,0.3)" stroke-width="2"/>
         <line x1="605" y1="170" x2="612" y2="305" stroke="rgba(0,0,0,0.3)" stroke-width="2"/>
-        <!-- Handles -->
         <rect x="430" y="230" width="30" height="5" rx="2" fill="rgba(0,0,0,0.3)"/>
         <rect x="620" y="238" width="25" height="5" rx="2" fill="rgba(0,0,0,0.3)"/>
-        <!-- Front lights -->
         <ellipse cx="720" cy="248" rx="16" ry="10" fill="#fff9c4" opacity="0.9"/>
         <ellipse cx="720" cy="248" rx="10" ry="6" fill="#fff59d"/>
-        <!-- Rear lights -->
         <rect x="78" y="240" width="12" height="22" rx="3" fill="#ff1744" opacity="0.8"/>
-        <!-- Wheels -->
         <circle cx="200" cy="310" r="48" fill="#1a1a1a" stroke="#333" stroke-width="3"/>
         <circle cx="200" cy="310" r="34" fill="#222" stroke="#444" stroke-width="2"/>
         <circle cx="200" cy="310" r="18" fill="#2a2a2a"/>
         <circle cx="200" cy="310" r="6" fill="#555"/>
-        <!-- Wheel spokes -->
         <line x1="200" y1="278" x2="200" y2="342" stroke="#555" stroke-width="3"/>
         <line x1="168" y1="310" x2="232" y2="310" stroke="#555" stroke-width="3"/>
         <line x1="177" y1="287" x2="223" y2="333" stroke="#555" stroke-width="3"/>
         <line x1="223" y1="287" x2="177" y2="333" stroke="#555" stroke-width="3"/>
-
         <circle cx="600" cy="310" r="48" fill="#1a1a1a" stroke="#333" stroke-width="3"/>
         <circle cx="600" cy="310" r="34" fill="#222" stroke="#444" stroke-width="2"/>
         <circle cx="600" cy="310" r="18" fill="#2a2a2a"/>
@@ -936,16 +890,14 @@
         <line x1="568" y1="310" x2="632" y2="310" stroke="#555" stroke-width="3"/>
         <line x1="577" y1="287" x2="623" y2="333" stroke="#555" stroke-width="3"/>
         <line x1="623" y1="287" x2="577" y2="333" stroke="#555" stroke-width="3"/>
-        <!-- Ground line -->
         <line x1="50" y1="355" x2="750" y2="355" stroke="rgba(200,16,46,0.3)" stroke-width="1"/>
-        <!-- Headlight beam -->
         <path d="M736 242 Q800 230 820 260 Q800 272 736 258 Z" fill="rgba(255,249,196,0.15)"/>
       </svg>
     </div>
   </div>
 
   <div class="hero-content">
-    <div class="hero-badge">سوق السيارات المستعملة #1 في المغرب</div>
+    <div class="hero-badge">سوق السيارات المستعملة #1 in المغرب</div>
     <h1>
       اعثر على سيارتك<br>
       <span class="accent">المثالية</span> بسعر<br>
@@ -968,14 +920,13 @@
         <div class="stat-label">مستخدم موثوق</div>
       </div>
       <div class="stat-item">
-        <span class="stat-num">+30</span>
+        <span class="stat-num">+50</span>
         <div class="stat-label">مدينة مغربية</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SEARCH -->
 <div class="search-section">
   <div class="search-card animate-in">
     <div class="search-title">البحث المتقدم عن سيارة</div>
@@ -1039,12 +990,36 @@
           <option>كل المدن</option>
           <option>الدار البيضاء</option>
           <option>الرباط</option>
+          <option>سلا</option>
+          <option>القنيطرة</option>
+          <option>طنجة</option>
           <option>مراكش</option>
           <option>فاس</option>
-          <option>طنجة</option>
-          <option>أكادير</option>
           <option>مكناس</option>
+          <option>أكادير</option>
           <option>وجدة</option>
+          <option>تطوان</option>
+          <option>العيون</option>
+          <option>الداخلة</option>
+          <option>الناظور</option>
+          <option>آسفي</option>
+          <option>الجديدة</option>
+          <option>خريبكة</option>
+          <option>بني ملال</option>
+          <option>المحمدية</option>
+          <option>تمارة</option>
+          <option>برشيد</option>
+          <option>سطات</option>
+          <option>تازة</option>
+          <option>الرشيدية</option>
+          <option>كلميم</option>
+          <option>الناظور</option>
+          <option>الحسيمة</option>
+          <option>العرائش</option>
+          <option>القصر الكبير</option>
+          <option>تيزنيت</option>
+          <option>تارودانت</option>
+          <option>وارزازات</option>
         </select>
       </div>
       <button class="btn-search">بحث 🔍</button>
@@ -1052,10 +1027,8 @@
   </div>
 </div>
 
-<!-- ADSENSE SPONSOR HUB 1 -->
 <div class="ads-container animate-in">
   <div class="ads-label">إعلان ممول</div>
-  <!-- Google AdSense Display Unit -->
   <ins class="adsbygoogle"
        style="display:block"
        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
@@ -1067,7 +1040,6 @@
   </script>
 </div>
 
-<!-- FEATURED CARS -->
 <section id="cars">
   <div class="section-header animate-in">
     <div>
@@ -1078,7 +1050,6 @@
   </div>
 
   <div class="cars-grid">
-    <!-- Card 1 -->
     <div class="car-card animate-in">
       <div class="car-img-wrap">
         <div class="car-svg-card">🚗</div>
@@ -1100,7 +1071,6 @@
       </div>
     </div>
 
-    <!-- Card 2 -->
     <div class="car-card animate-in">
       <div class="car-img-wrap">
         <div class="car-svg-card">🚙</div>
@@ -1122,7 +1092,6 @@
       </div>
     </div>
 
-    <!-- Card 3 -->
     <div class="car-card animate-in">
       <div class="car-img-wrap">
         <div class="car-svg-card">🏎️</div>
@@ -1144,7 +1113,6 @@
       </div>
     </div>
 
-    <!-- Card 4 -->
     <div class="car-card animate-in">
       <div class="car-img-wrap">
         <div class="car-svg-card">🚐</div>
@@ -1166,7 +1134,6 @@
       </div>
     </div>
 
-    <!-- Card 5 -->
     <div class="car-card animate-in">
       <div class="car-img-wrap">
         <div class="car-svg-card">🚗</div>
@@ -1188,7 +1155,6 @@
       </div>
     </div>
 
-    <!-- Card 6 -->
     <div class="car-card animate-in">
       <div class="car-img-wrap">
         <div class="car-svg-card">🚙</div>
@@ -1212,7 +1178,6 @@
   </div>
 </section>
 
-<!-- BRANDS -->
 <section id="brands" class="brands-section">
   <div class="section-header animate-in">
     <div>
@@ -1236,7 +1201,6 @@
   </div>
 </section>
 
-<!-- WHY US -->
 <section id="why" class="why-section">
   <div class="section-header animate-in">
     <div>
@@ -1258,7 +1222,7 @@
     <div class="feature-card animate-in">
       <span class="feature-icon">📍</span>
       <div class="feature-title">تغطية وطنية</div>
-      <p class="feature-desc">إعلانات من جميع مدن المغرب: الدار البيضاء، الرباط، مراكش، فاس، طنجة وأكثر من 30 مدينة.</p>
+      <p class="feature-desc">إعلانات من جميع مدن المغرب: الدار البيضاء، الرباط، مراكش، فاس، طنجة وأكثر من 50 مدينة وحاضرة.</p>
     </div>
     <div class="feature-card animate-in">
       <span class="feature-icon">⚡</span>
@@ -1273,15 +1237,14 @@
     <div class="feature-card animate-in">
       <span class="feature-icon">🔔</span>
       <div class="feature-title">تنبيهات فورية</div>
-      <p class="feature-desc">فعّل التنبيهات وكن أول من يعرف حين تُضاف سيارة تناسب بحثك.</p>
+      <p class="feature-desc">فعّل التنببهات وكن أول من يعرف حين تُضاف سيارة تناسب بحثك.</p>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
 <section class="cta-section">
   <div class="cta-content animate-in">
-    <h2 class="cta-title">هل لديك سيارة للبيع؟</h2>
+    <h2 class="cta-title">هل لديك سيارة للبيع?</h2>
     <p class="cta-desc">انشر إعلانك مجاناً وتواصل مع آلاف المشترين في جميع أنحاء المغرب اليوم</p>
     <div class="cta-buttons">
       <button class="btn-white open-upload-modal">+ أضف إعلانك الآن</button>
@@ -1290,7 +1253,6 @@
   </div>
 </section>
 
-<!-- ADSENSE SPONSOR HUB 2 -->
 <div class="ads-container animate-in">
   <div class="ads-label">إعلان ممول</div>
   <ins class="adsbygoogle"
@@ -1304,7 +1266,6 @@
   </script>
 </div>
 
-<!-- TESTIMONIALS -->
 <section id="testimonials">
   <div class="section-header animate-in">
     <div>
@@ -1349,7 +1310,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer id="contact">
   <div class="footer-grid">
     <div class="footer-brand">
@@ -1378,14 +1338,17 @@
     </div>
 
     <div class="footer-col">
-      <h4>المدن</h4>
+      <h4>أهم المدن</h4>
       <ul>
         <li><a href="#">الدار البيضاء</a></li>
-        <li><a href="#">الرباط</a></li>
+        <li><a href="#">الرباط - سلا</a></li>
+        <li><a href="#">طنجة - تطوان</a></li>
         <li><a href="#">مراكش</a></li>
-        <li><a href="#">فاس</a></li>
-        <li><a href="#">طنجة</a></li>
+        <li><a href="#">فاس - مكناس</a></li>
         <li><a href="#">أكادير</a></li>
+        <li><a href="#">القنيطرة</a></li>
+        <li><a href="#">وجدة</a></li>
+        <li><a href="#">العيون - الداخلة</a></li>
       </ul>
     </div>
 
@@ -1408,7 +1371,6 @@
   </div>
 </footer>
 
-<!-- NEW: PREMIUM UPGRADE MODAL INTERACTIVE SYSTEM -->
 <div class="modal-overlay" id="uploadModal">
   <div class="modal-card">
     <button class="modal-close" id="closeModal">&times;</button>
@@ -1416,7 +1378,6 @@
     <p style="text-align: center; color: var(--gray-light); font-size: 14px;">ضاعف فرص بيع سيارتك بسرعة في جميع أنحاء المغرب</p>
     
     <div class="plans-container">
-      <!-- Free Plan -->
       <div class="plan-box" id="freePlan">
         <div class="plan-name">إعلان عادي</div>
         <div class="plan-price">0 <span>درهم</span></div>
@@ -1428,7 +1389,6 @@
         <button class="btn-primary" style="width: 100%;">نشر مجاني</button>
       </div>
 
-      <!-- Premium 199 DH Plan -->
       <div class="plan-box premium" id="premiumPlan">
         <div class="plan-badge">الأكثر مبيعاً 🔥</div>
         <div class="plan-name">إعلان مميز ✨</div>
@@ -1443,7 +1403,6 @@
       </div>
     </div>
 
-    <!-- Payment Gateway Form (appears when premium is clicked) -->
     <div class="payment-form" id="paymentSection">
       <h4 style="font-family: 'Tajawal', sans-serif; font-size: 16px; color: var(--gold); margin-bottom: 15px;">💳 بطاقة الائتمان أو البطاقة البنكية المغربية</h4>
       <div class="form-group">
@@ -1469,7 +1428,6 @@
   </div>
 </div>
 
-<!-- WhatsApp Float -->
 <a href="https://wa.me/212600000000" class="whatsapp-float" target="_blank">💬</a>
 
 <script>
@@ -1505,14 +1463,13 @@
     }
   });
 
-  // NEW: Premium Modal Actions UI Logic
+  // Premium Modal Actions UI Logic
   const uploadModal = document.getElementById('uploadModal');
   const closeModal = document.getElementById('closeModal');
   const premiumPlan = document.getElementById('premiumPlan');
   const paymentSection = document.getElementById('paymentSection');
   const freePlan = document.getElementById('freePlan');
 
-  // Trigger modal display on clicking any create ad buttons
   document.querySelectorAll('.open-upload-modal').forEach(btn => {
     btn.addEventListener('click', () => {
       uploadModal.classList.add('active');
@@ -1524,7 +1481,6 @@
     paymentSection.classList.remove('active');
   });
 
-  // Open card payment fields on clicking premium option
   premiumPlan.addEventListener('click', () => {
     paymentSection.classList.add('active');
     paymentSection.scrollIntoView({ behavior: 'smooth' });
