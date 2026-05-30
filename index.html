@@ -713,6 +713,79 @@
   .footer-bottom p { font-size: 13px; color: var(--gray); }
   .footer-bottom .flag { font-size: 18px; }
 
+  /* ===== MODAL SYSTEM STYLE ===== */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    z-index: 2000;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden;
+    transition: all 0.3s ease;
+    padding: 20px;
+  }
+  .modal-overlay.active { opacity: 1; visibility: visible; }
+
+  .modal-wrapper {
+    background: var(--dark-2);
+    border: 1px solid rgba(200, 16, 46, 0.3);
+    border-radius: 16px;
+    width: 100%; max-width: 600px;
+    max-height: 90vh; overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+    transform: translateY(30px);
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 32px;
+  }
+  .modal-overlay.active .modal-wrapper { transform: translateY(0); }
+
+  .modal-close {
+    position: absolute; top: 20px; left: 20px;
+    width: 36px; height: 36px;
+    background: var(--dark-3); border: none; border-radius: 50%;
+    color: var(--white); font-size: 20px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .modal-close:hover { background: var(--red); }
+
+  .modal-title {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 24px; font-weight: 800;
+    margin-bottom: 24px; color: var(--white);
+    border-bottom: 2px solid rgba(200, 16, 46, 0.2);
+    padding-bottom: 12px;
+  }
+
+  /* Modal forms spacing */
+  .modal-form { display: flex; flex-direction: column; gap: 16px; }
+  .modal-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  
+  .form-hint {
+    font-size: 13px; color: var(--gray-light); margin-top: 10px; text-align: center;
+  }
+  .form-hint span { color: var(--red); cursor: pointer; font-weight: 600; text-decoration: underline; }
+
+  /* Image upload box */
+  .upload-box {
+    border: 2px dashed rgba(255,255,255,0.15);
+    border-radius: 8px; padding: 24px; text-align: center;
+    background: var(--dark-3); cursor: pointer; transition: border-color 0.2s;
+  }
+  .upload-box:hover { border-color: var(--red); }
+  .upload-box text { color: var(--gray); font-size: 14px; }
+
+  /* Services list styling inside modal */
+  .services-modal-grid { display: flex; flex-direction: column; gap: 14px; }
+  .service-modal-item {
+    background: var(--dark-3); padding: 16px; border-radius: 8px;
+    border-right: 4px solid var(--red); display: flex; gap: 14px; align-items: start;
+  }
+  .service-modal-icon { font-size: 24px; }
+  .service-modal-info h5 { font-family: 'Tajawal', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .service-modal-info p { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
   /* ===== ANIMATIONS ===== */
   @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(28px); }
@@ -748,6 +821,7 @@
     .hero-stats { gap: 20px; }
     .stat-num { font-size: 22px; }
     .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    .modal-form-row { grid-template-columns: 1fr; }
   }
 
   /* FLOATING WHATSAPP */
@@ -779,14 +853,15 @@
   </a>
   <ul class="nav-links">
     <li><a href="#cars">السيارات</a></li>
+    <li><a href="javascript:void(0)" onclick="openModal('servicesModal')">الخدمات</a></li>
     <li><a href="#brands">الماركات</a></li>
     <li><a href="#why">لماذا نحن؟</a></li>
     <li><a href="#testimonials">آراء العملاء</a></li>
     <li><a href="#contact">اتصل بنا</a></li>
   </ul>
   <div class="nav-actions">
-    <button class="btn-outline">تسجيل الدخول</button>
-    <button class="btn-primary">+ أضف إعلانك</button>
+    <button class="btn-outline" onclick="openModal('authModal')">تسجيل الدخول</button>
+    <button class="btn-primary" onclick="openModal('addProductModal')">+ أضف إعلانك</button>
   </div>
 </nav>
 
@@ -869,8 +944,8 @@
       أكبر منصة لبيع وشراء السيارات المستعملة في المغرب. آلاف الإعلانات من جميع المدن، أسعار منافسة، وضمان الجودة.
     </p>
     <div class="hero-actions">
-      <button class="btn-large primary">🔍 ابحث الآن</button>
-      <button class="btn-large secondary">📋 أضف إعلانك مجاناً</button>
+      <button class="btn-large primary" onclick="document.getElementById('cars').scrollIntoView();">🔍 ابحث الآن</button>
+      <button class="btn-large secondary" onclick="openModal('addProductModal')">📋 أضف إعلانك مجاناً</button>
     </div>
     <div class="hero-stats">
       <div class="stat-item">
@@ -1183,8 +1258,8 @@
     <h2 class="cta-title">هل لديك سيارة للبيع؟</h2>
     <p class="cta-desc">انشر إعلانك مجاناً وتواصل مع آلاف المشترين في جميع أنحاء المغرب اليوم</p>
     <div class="cta-buttons">
-      <button class="btn-white">+ أضف إعلانك الآن</button>
-      <button class="btn-ghost-white">اعرف المزيد</button>
+      <button class="btn-white" onclick="openModal('addProductModal')">+ أضف إعلانك الآن</button>
+      <button class="btn-ghost-white" onclick="openModal('servicesModal')">اعرف المزيد</button>
     </div>
   </div>
 </section>
@@ -1255,10 +1330,10 @@
       <h4>روابط سريعة</h4>
       <ul>
         <li><a href="#">الرئيسية</a></li>
-        <li><a href="#">السيارات للبيع</a></li>
-        <li><a href="#">الماركات</a></li>
-        <li><a href="#">الإعلانات المميزة</a></li>
-        <li><a href="#">أضف إعلاناً</a></li>
+        <li><a href="javascript:void(0)" onclick="openModal('servicesModal')">خدماتنا</a></li>
+        <li><a href="#cars">السيارات للبيع</a></li>
+        <li><a href="#brands">الماركات</a></li>
+        <li><a href="javascript:void(0)" onclick="openModal('addProductModal')">أضف إعلاناً</a></li>
       </ul>
     </div>
 
@@ -1296,6 +1371,186 @@
 <!-- WhatsApp Float -->
 <a href="https://wa.me/212600000000" class="whatsapp-float" target="_blank">💬</a>
 
+
+<!-- ==================== MODALS SYSTEM (DYNAMIC POPUPS) ==================== -->
+
+<!-- 1. AUTHENTICATION MODAL (LOGIN & REGISTER) -->
+<div id="authModal" class="modal-overlay" onclick="closeModal('authModal')">
+  <div class="modal-wrapper" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('authModal')">✕</button>
+    
+    <!-- Sign In View -->
+    <div id="loginView">
+      <div class="modal-title">تسجيل الدخول</div>
+      <form class="modal-form" onsubmit="event.preventDefault(); alert('تم تسجيل الدخول بنجاح! (عرض تجريبي)'); closeModal('authModal');">
+        <div class="form-group">
+          <label>البريد الإلكتروني أو رقم الهاتف</label>
+          <input type="text" class="form-control" placeholder="example@mail.com" required>
+        </div>
+        <div class="form-group">
+          <label>كلمة المرور</label>
+          <input type="password" class="form-control" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn-search" style="padding: 12px; font-size: 16px;">دخول</button>
+        <p class="form-hint">ليس لديك حساب؟ <span onclick="toggleAuthView('register')">أنشئ حساباً جديداً الآن</span></p>
+      </form>
+    </div>
+
+    <!-- Sign Up View (Hidden by default) -->
+    <div id="registerView" style="display: none;">
+      <div class="modal-title">إنشاء حساب جديد</div>
+      <form class="modal-form" onsubmit="event.preventDefault(); alert('تم إنشاء الحساب بنجاح! (عرض تجريبي)'); closeModal('authModal');">
+        <div class="form-group">
+          <label>الاسم الكامل</label>
+          <input type="text" class="form-control" placeholder="الاسم والنسب" required>
+        </div>
+        <div class="form-group">
+          <label>رقم الهاتف (واتساب)</label>
+          <input type="tel" class="form-control" placeholder="0600000000" required>
+        </div>
+        <div class="form-group">
+          <label>البريد الإلكتروني</label>
+          <input type="email" class="form-control" placeholder="name@example.com" required>
+        </div>
+        <div class="form-group">
+          <label>كلمة المرور</label>
+          <input type="password" class="form-control" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn-search" style="padding: 12px; font-size: 16px;">تأكيد التسجيل</button>
+        <p class="form-hint">لديك حساب بالفعل؟ <span onclick="toggleAuthView('login')">تسجيل الدخول</span></p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- 2. ADD PRODUCT MODAL (NEW CAR AD) -->
+<div id="addProductModal" class="modal-overlay" onclick="closeModal('addProductModal')">
+  <div class="modal-wrapper" onclick="event.stopPropagation()" style="max-width: 680px;">
+    <button class="modal-close" onclick="closeModal('addProductModal')">✕</button>
+    <div class="modal-title">إضافة منتوج (سيارة) جديد</div>
+    
+    <form class="modal-form" onsubmit="event.preventDefault(); alert('تم نشر إعلان سيارتك بنجاح وسيرجع للمراجعة فوراً!'); closeModal('addProductModal');">
+      <div class="modal-form-row">
+        <div class="form-group">
+          <label>عنوان الإعلان / اسم السيارة</label>
+          <input type="text" class="form-control" placeholder="مثال: Dacia Logan لدواعي السفر" required>
+        </div>
+        <div class="form-group">
+          <label>السعر المطلوب (درهم)</label>
+          <input type="number" class="form-control" placeholder="مثال: 85000" required>
+        </div>
+      </div>
+
+      <div class="modal-form-row">
+        <div class="form-group">
+          <label>الماركة</label>
+          <select class="form-control" required>
+            <option value="">اختر الماركة</option>
+            <option>Dacia</option>
+            <option>Renault</option>
+            <option>Volkswagen</option>
+            <option>Peugeot</option>
+            <option>Hyundai</option>
+            <option>Toyota</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>الموديل أو سنة الصنع</label>
+          <input type="text" class="form-control" placeholder="مثال: 2021" required>
+        </div>
+      </div>
+
+      <div class="modal-form-row">
+        <div class="form-group">
+          <label>نوع الوقود</label>
+          <select class="form-control" required>
+            <option value="">اختر النوع</option>
+            <option>ديزل (Gazole)</option>
+            <option>بنزين (Essence)</option>
+            <option>هجين (Hybride)</option>
+            <option>كهربائية</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>المسافة المقطوعة (كيلومتر)</label>
+          <input type="number" class="form-control" placeholder="مثال: 60000" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>المدينة</label>
+        <select class="form-control" required>
+          <option value="">اختر المدينة</option>
+          <option>الدار البيضاء</option>
+          <option>الرباط</option>
+          <option>مراكش</option>
+          <option>طنجة</option>
+          <option>فاس</option>
+          <option>أكادير</option>
+          <option>القنيطرة</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>صور المنتج (السيارة)</label>
+        <div class="upload-box" onclick="alert('تفعيل اختيار الملفات يحتاج ربط السيرفر الخلفي (Backend)، تم التعرف على أمر الرفع التجريبي!')">
+          <span>📸 اضغط هنا لاختيار صور السيارة أو قم بسحبها هنا</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>تفاصيل إضافية / وصف السيارة</label>
+        <textarea class="form-control" rows="3" placeholder="اكتب حالة المحرك، الصباغة، الإطارات، إلخ..." style="resize: vertical; min-height: 80px;"></textarea>
+      </div>
+
+      <button type="submit" class="btn-search" style="padding: 14px; font-size: 16px;">نشر الإعلان الآن ✨</button>
+    </form>
+  </div>
+</div>
+
+<!-- 3. SERVICES MODAL -->
+<div id="servicesModal" class="modal-overlay" onclick="closeModal('servicesModal')">
+  <div class="modal-wrapper" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('servicesModal')">✕</button>
+    <div class="modal-title">الخدمات التي تقدمها MarocAuto</div>
+    
+    <div class="services-modal-grid">
+      <div class="service-modal-item">
+        <span class="service-modal-icon">📣</span>
+        <div class="service-modal-info">
+          <h5>سوق إعلانات مجاني</h5>
+          <p>إمكانية نشر إعلان سيارتك والوصول إلى آلاف المشترين المهتمين يومياً في كل أنحاء المملكة بدون أي وسطاء أو عمولات خفية.</p>
+        </div>
+      </div>
+
+      <div class="service-modal-item">
+        <span class="service-modal-icon">⭐</span>
+        <div class="service-modal-info">
+          <h5>الإعلانات المميزة (Premium Ads)</h5>
+          <p>تثبيت إعلانك في الصفحة الرئيسية وفي أعلى نتائج البحث لتسريع عملية البيع بمعدل 5 مرات مقارنة بالإعلانات العادية.</p>
+        </div>
+      </div>
+
+      <div class="service-modal-item">
+        <span class="service-modal-icon">🔍</span>
+        <div class="service-modal-info">
+          <h5>طلب فحص تقني للسيارات</h5>
+          <p>نوفر خبراء معتمدين لفحص السيارات المستعملة قبل إتمام البيع، والتأكد من سلامة الهيكل والمحرك لحمايتك من الأعطال المخفية.</p>
+        </div>
+      </div>
+
+      <div class="service-modal-item">
+        <span class="service-modal-icon">📊</span>
+        <div class="service-modal-info">
+          <h5>تثمين وتقدير قيمة الأسعار</h5>
+          <p>أداة ذكية مبنية على بيانات السوق المغربي تمنحك السعر التقريبي العادل لسيارتك بناءً على موديلها وحالتها التقنية المسجلة.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script>
   // Scroll animation observer
   const observer = new IntersectionObserver((entries) => {
@@ -1326,6 +1581,44 @@
       nav.style.boxShadow = '0 4px 30px rgba(0,0,0,0.4)';
     } else {
       nav.style.boxShadow = 'none';
+    }
+  });
+
+  // ==================== MODALS SYSTEM INTERACTION (JAVASCRIPT) ====================
+  
+  // Open Modal function
+  function openModal(modalId) {
+    document.getElementById(modalId).classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevents background body scroll
+  }
+
+  // Close Modal function
+  function closeModal(modalId) {
+    document.getElementById(modalId).classList.remove('active');
+    document.body.style.overflow = 'auto'; // Re-enables body scroll
+  }
+
+  // Toggle views inside Auth Modal (Login <-> Register)
+  function toggleAuthView(view) {
+    const loginView = document.getElementById('loginView');
+    const registerView = document.getElementById('registerView');
+    
+    if (view === 'register') {
+      loginView.style.display = 'none';
+      registerView.style.display = 'block';
+    } else {
+      loginView.style.display = 'block';
+      registerView.style.display = 'none';
+    }
+  }
+
+  // Close modals using Escape key on keyboard
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay').forEach(modal => {
+        modal.classList.remove('active');
+      });
+      document.body.style.overflow = 'auto';
     }
   });
 </script>
